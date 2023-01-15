@@ -5,8 +5,14 @@ module.exports.getAllTools = (req, res) => {
     // console.log(req.originalUrl)
     // res.redirect('/admin')
     res.send('Got found')
+
+    // req and res have many method. We must need to explore all from express documentation
 }
 
 module.exports.saveATools = (req, res) => {
     res.send('tools post')
+}
+
+module.exports.getToolId = (req, res) => {
+    res.send('get the id')
 }
