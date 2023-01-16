@@ -25,7 +25,6 @@ app.get('/', (req, res) => {
 
 app.use('/tools/api/v1', toolsRoute)
 
-
 app.all('*', (req, res) => {
   res.send('Route not found')
 })
