@@ -72,7 +72,7 @@ module.exports.updateTool = async (req, res, next) => {
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ success: false, message: `Your id: (${id}) is not a valid id` })
         }
-        const updateSingleTool = await db.collection('tools').updateOne({ _id: ObjectId(id) }, {$set: req.body})
+        const updateSingleTool = await db.collection('tools').updateOne({ _id: ObjectId(id) }, { $set: req.body })
         // to validate the modifiedCount
         if (!updateSingleTool.modifiedCount) {
             return res.status(400).json({ success: false, message: 'Could not update the tool' })
@@ -99,4 +99,19 @@ module.exports.deleteTool = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
+
+// for testing 
+module.exports.test = async (req, res, next) => {
+    for (let i = 0; i < 100000; i++) {
+        const db = getDb();
+        db.collection('test').insertOne({ name: `test ${i}`, age: i });
+    }
+}
+
+module.exports.testGet = async (req, res, next) => {
+    const db = getDb();
+
+    const result = await db.collection('test').find({age: 99999}).toArray();
+    res.json(result)
 }
