@@ -82,3 +82,21 @@ module.exports.updateTool = async (req, res, next) => {
         next(error)
     }
 }
+module.exports.deleteTool = async (req, res, next) => {
+    try {
+        const db = getDb();
+        const { id } = req.params;
+        // to validate the id 
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ success: false, message: `Your id: (${id}) is not valid` })
+        }
+        const deleteSingleTool = await db.collection('tools').deleteOne({ _id: ObjectId(id) })
+        // to validate the deletedCount
+        if (!deleteSingleTool.deletedCount) {
+            return res.status(400).json({ success: false, message: 'Could not delete the tool' })
+        }
+        res.status(200).json({ success: true, message: 'Successfully deleted the tool' })
+    } catch (error) {
+        next(error)
+    }
+}

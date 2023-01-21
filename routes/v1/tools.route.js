@@ -53,5 +53,6 @@ router
     .route('/:id')
     .get(limiter, toolsController.getToolId)
     .patch(toolsController.updateTool)
+    .delete(toolsController.deleteTool)
 
 module.exports = router;
