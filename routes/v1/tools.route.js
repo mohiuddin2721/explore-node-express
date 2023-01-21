@@ -52,5 +52,6 @@ router
 router
     .route('/:id')
     .get(limiter, toolsController.getToolId)
+    .patch(toolsController.updateTool)
 
 module.exports = router;
